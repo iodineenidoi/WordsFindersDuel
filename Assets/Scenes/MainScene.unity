@@ -497,8 +497,9 @@ GameObject:
   m_Component:
   - component: {fileID: 169566934}
   - component: {fileID: 169566933}
-  - component: {fileID: 169566935}
   - component: {fileID: 169566936}
+  - component: {fileID: 169566937}
+  - component: {fileID: 169566935}
   m_Layer: 0
   m_Name: NetworkController
   m_TagString: Untagged
@@ -573,6 +574,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uri: https://anagram.poncy.ru/anagram-decoding.cgi?name=anagram_main&inword={0}+&answer_type=3&nouns=on
   messageBox: {fileID: 1420244113}
+  lobbyMenu: {fileID: 1117603273}
+  gameRoot: {fileID: 1180914849}
+--- !u!114 &169566937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169566932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f2211b4e30a42de8d1ab67e554bacda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkController: {fileID: 169566933}
+  messageBox: {fileID: 1420244113}
+  waitingScreen: {fileID: 906802709}
   lobbyMenu: {fileID: 1117603273}
   gameRoot: {fileID: 1180914849}
 --- !u!1001 &200187087
@@ -4111,7 +4129,7 @@ GameObject:
   - component: {fileID: 1117603272}
   - component: {fileID: 1117603273}
   m_Layer: 0
-  m_Name: LobbyUI
+  m_Name: LobbyMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

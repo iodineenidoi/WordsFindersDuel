@@ -21,11 +21,6 @@ namespace Core
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
-        }
-
-        private void Start()
-        {
             lobbyMenu.ShowMainMenu();
         }
 

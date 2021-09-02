@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Core;
 using Entities;
 using Gaming;
 using UI;
@@ -14,7 +13,6 @@ namespace Networking
     {
         [SerializeField] private string uri = "";
         [SerializeField] private MessageBox messageBox = null;
-        [SerializeField] private LobbyMenu lobbyMenu = null;
         [SerializeField] private GameRoot gameRoot = null;
 
         public bool IsReady { get; private set; }

@@ -14,6 +14,7 @@ using Random = UnityEngine.Random;
 
 namespace Networking
 {
+    [RequireComponent(typeof(PhotonView))]
     public class NetworkController : MonoBehaviourPunCallbacks
     {
         private const byte MaxPlayersCountInRoom = 2;
@@ -31,7 +32,7 @@ namespace Networking
         private DamageController _damageController = null;
 
         public DamageController DamageController => _damageController;
-        public bool GameStarted { get; private set; }
+        public bool GameStarted { get; set; }
 
         public void SendWord(string word)
         {
@@ -39,6 +40,11 @@ namespace Networking
                 nameof(RpsTryWord), 
                 RpcTarget.MasterClient,
                 word, PhotonNetwork.NickName);
+        }
+
+        public void TryStartGame()
+        {
+            StartCoroutine(StartGame());
         }
 
         public void CreateRoom()
@@ -78,18 +84,6 @@ namespace Networking
             lobbyMenu.ShowMainMenu();
         }
 
-        private void HandleEnemyLeftGame()
-        {
-            messageBox.Show(
-                "Противник покинул игру!\nВы победили!",
-                "Ура!",
-                () =>
-                {
-                    gameRoot.Stop();
-                    _damageController = null;
-                });
-        }
-
         public void HandlePlayerIsDead(string playerName)
         {
             if (PhotonNetwork.NickName == playerName)
@@ -97,22 +91,14 @@ namespace Networking
                 messageBox.Show(
                     "Противник повержен!\nПоздравляю, вы победили!",
                     "Ура!",
-                    () =>
-                    {
-                        gameRoot.Stop();
-                        _damageController = null;
-                    });
+                    gameRoot.Stop);
             }
             else
             {
                 messageBox.Show(
                     "Вы проиграли.",
                     "Ок",
-                    () =>
-                    {
-                        gameRoot.Stop();
-                        _damageController = null;
-                    });
+                    gameRoot.Stop);
             }
         }
         
@@ -120,18 +106,13 @@ namespace Networking
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
-        }
-
-        private void Start()
-        {
             PhotonNetwork.NickName = NameGenerator.Get();
             PhotonNetwork.ConnectUsingSettings();
         }
 
         private void Update()
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && GameStarted)
             {
                 _delayToUpdateLetters -= Time.deltaTime;
                 if (_delayToUpdateLetters <= 0f)
@@ -204,82 +185,14 @@ namespace Networking
         
         #region PhotonCallbacks
 
-        public override void OnJoinedRoom()
-        {
-            Debug.Log($"Joined to room. Player count: {PhotonNetwork.CurrentRoom.PlayerCount}");
-
-            StartCoroutine(TryStartGame());
-        }
-
         public override void OnLeftRoom()
         {
             GameStarted = false;
         }
 
-        public override void OnCreatedRoom()
-        {
-            Debug.Log("I created room");
-        }
-
-        public override void OnPlayerEnteredRoom(Player newPlayer)
-        {
-            Debug.Log($"Player joined my room. Player name: {newPlayer.NickName}. Player count: {PhotonNetwork.CurrentRoom.PlayerCount}");
-
-            StartCoroutine(TryStartGame());
-        }
-
-        public override void OnJoinedLobby()
-        {
-            Debug.Log("Joined to lobby");
-        }
-
-        public override void OnConnectedToMaster()
-        {
-            Debug.Log("Connected to master");
-        }
-
-        public override void OnJoinRandomFailed(short returnCode, string message)
-        {
-            Debug.Log($"Return code: {returnCode}. Message: {message}");
-
-            PhotonNetwork.CreateRoom(null, new RoomOptions());
-        }
-
-        public override void OnJoinRoomFailed(short returnCode, string message)
-        {
-            Debug.Log($"Return code: {returnCode}. Message: {message}");
-            
-            if (returnCode == 32758)
-            {
-                messageBox.Show(
-                    "Комнаты с таким именем не существует",
-                    "Продолжить",
-                    () =>
-                    {
-                        waitingScreen.Hide();
-                        lobbyMenu.ShowFindLobbyMenu();
-                    });
-            }
-        }
-
-        public override void OnDisconnected(DisconnectCause cause)
-        {
-            Debug.Log($"Disconnected due to: {cause}");
-        }
-
-        public override void OnPlayerLeftRoom(Player otherPlayer)
-        {
-            Debug.Log($"Player {otherPlayer.NickName} left the game. You are the winner!");
-
-            if (GameStarted)
-            {
-                HandleEnemyLeftGame();
-            }
-        }
-
         #endregion
 
-        private IEnumerator TryStartGame()
+        private IEnumerator StartGame()
         {
             _usedWords.Clear();
 
@@ -297,7 +210,7 @@ namespace Networking
                     _currentLetters);
             }
         }
-
+        
         private IEnumerator LoadNewWords(Action callback = null)
         {
             if (PhotonNetwork.IsMasterClient)
