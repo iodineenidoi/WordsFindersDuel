@@ -89,15 +89,15 @@ namespace Networking
             if (PhotonNetwork.NickName == playerName)
             {
                 messageBox.Show(
-                    "Противник повержен!\nПоздравляю, вы победили!",
-                    "Ура!",
+                    "UI_You_Won",
+                    "UI_Great",
                     gameRoot.Stop);
             }
             else
             {
                 messageBox.Show(
-                    "Вы проиграли.",
-                    "Ок",
+                    "UI_You_Lose",
+                    "UI_Ok",
                     gameRoot.Stop);
             }
         }

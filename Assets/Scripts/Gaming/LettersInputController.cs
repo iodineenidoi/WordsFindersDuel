@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
+using Localization;
 using Networking;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +11,7 @@ namespace Gaming
     {
         [SerializeField] private NetworkController networkController = null;
         [SerializeField] private Button enterButton = null;
-        [SerializeField] private TMP_Text enterButtonText = null;
+        [SerializeField] private TextLocalizer enterButtonText = null;
         [SerializeField] private LetterButton[] letterButtons = new LetterButton[0];
 
         private StringBuilder _stringBuilder = new StringBuilder();
@@ -57,12 +57,12 @@ namespace Gaming
             if (_stringBuilder.Length == 0)
             {
                 enterButton.interactable = false;
-                enterButtonText.text = "Ввод";
+                enterButtonText.Localize("UI_Enter");
             }
             else
             {
                 enterButton.interactable = true;
-                enterButtonText.text = _stringBuilder.ToString();
+                enterButtonText.Localize(_stringBuilder.ToString());
             }
         }
     }

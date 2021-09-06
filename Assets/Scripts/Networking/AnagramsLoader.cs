@@ -34,7 +34,7 @@ namespace Networking
                 yield return webRequest.SendWebRequest();
                 if (webRequest.result != UnityWebRequest.Result.Success)
                 {
-                    messageBox.Show(webRequest.error, "Ок", () =>
+                    messageBox.Show(webRequest.error, "UI_Ok", () =>
                     {
                         gameRoot.Stop();
                     });

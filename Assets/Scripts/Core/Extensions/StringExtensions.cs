@@ -6,5 +6,10 @@
         {
             return string.IsNullOrWhiteSpace(source);
         }
+
+        public static bool IsNullOrEmpty(this string source)
+        {
+            return string.IsNullOrEmpty(source);
+        }
     }
 }

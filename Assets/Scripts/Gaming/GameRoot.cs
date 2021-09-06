@@ -34,9 +34,9 @@ namespace Gaming
         public void OnExitButtonClicked()
         {
             messageBox.Show(
-                "Вы действительно хотите сдаться и покинуть игру?",
-                "Нет",
-                "Да",
+                "UI_Wanna_Leave_Game_Question",
+                "UI_No",
+                "UI_Yes",
                 () => {},
                 Stop);
         }

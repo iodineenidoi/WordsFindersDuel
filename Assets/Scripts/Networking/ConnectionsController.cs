@@ -56,8 +56,8 @@ namespace Networking
             if (returnCode == 32758)
             {
                 messageBox.Show(
-                    "Комнаты с таким именем не существует",
-                    "Продолжить",
+                    "UI_Room_Not_Found",
+                    "UI_Continue",
                     () =>
                     {
                         waitingScreen.Hide();
@@ -86,8 +86,8 @@ namespace Networking
         private void HandleEnemyLeftGame()
         {
             messageBox.Show(
-                "Противник покинул игру!\nВы победили!",
-                "Ура!",
+                "UI_Enemy_Left_Game",
+                "UI_Great",
                 () =>
                 {
                     gameRoot.Stop();

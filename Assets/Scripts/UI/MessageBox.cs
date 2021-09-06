@@ -1,4 +1,5 @@
 ﻿using System;
+using Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,10 +9,10 @@ namespace UI
     public class MessageBox : MonoBehaviour
     {
         [SerializeField] private GameObject messageBoxRoot = null;
-        [SerializeField] private TMP_Text messageText = null;
-        [SerializeField] private TMP_Text okButtonText = null;
-        [SerializeField] private TMP_Text greenButtonText = null;
-        [SerializeField] private TMP_Text redButtonText = null;
+        [SerializeField] private TextLocalizer messageText = null;
+        [SerializeField] private TextLocalizer okButtonText = null;
+        [SerializeField] private TextLocalizer greenButtonText = null;
+        [SerializeField] private TextLocalizer redButtonText = null;
         [SerializeField] private GameObject okButton = null;
         [SerializeField] private GameObject greenButton = null;
         [SerializeField] private GameObject redButton = null;
@@ -40,11 +41,11 @@ namespace UI
             if (messageBoxRoot.activeSelf)
                 return;
             
-            messageText.text = messageTextValue;
+            messageText.Localize(messageTextValue);
             
-            okButtonText.text = buttonTextValue;
-            greenButtonText.text = string.Empty;
-            redButtonText.text = string.Empty;
+            okButtonText.Localize(buttonTextValue);
+            greenButtonText.Localize(string.Empty);
+            redButtonText.Localize(string.Empty);
             
             _okButtonCallback = buttonCallback;
             _greenButtonCallback = null;
@@ -62,11 +63,11 @@ namespace UI
             if (messageBoxRoot.activeSelf)
                 return;
             
-            messageText.text = messageTextValue;
+            messageText.Localize(messageTextValue);
             
-            okButtonText.text = string.Empty;
-            greenButtonText.text = greenButtonTextValue;
-            redButtonText.text = redButtonTextValue;
+            okButtonText.Localize(string.Empty);
+            greenButtonText.Localize(greenButtonTextValue);
+            redButtonText.Localize(redButtonTextValue);
             
             _okButtonCallback = null;
             _greenButtonCallback = greenButtonCallback;
@@ -84,11 +85,11 @@ namespace UI
             if (!messageBoxRoot.activeSelf)
                 return;
 
-            messageText.text = string.Empty;
+            messageText.Localize(string.Empty);
             
-            okButtonText.text = string.Empty;
-            greenButtonText.text = string.Empty;
-            redButtonText.text = string.Empty;
+            okButtonText.Localize(string.Empty);
+            greenButtonText.Localize(string.Empty);
+            redButtonText.Localize(string.Empty);
             
             _okButtonCallback = null;
             _greenButtonCallback = null;

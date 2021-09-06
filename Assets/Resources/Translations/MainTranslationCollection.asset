@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecdd090d10874cbeb5ba2742f79bb8f0, type: 3}
+  m_Name: MainTranslationCollection
+  m_EditorClassIdentifier: 
+  TranslationsList:
+  - key: UI_Exit
+    languages: 0000000001000000
+    values:
+    - Exit
+    - "\u0412\u044B\u0439\u0442\u0438"
+  - key: UI_Find
+    languages: 0000000001000000
+    values:
+    - Find
+    - "\u041D\u0430\u0439\u0442\u0438"
+  - key: UI_Create
+    languages: 0000000001000000
+    values:
+    - Create
+    - "\u0421\u043E\u0437\u0434\u0430\u0442\u044C"
+  - key: UI_Connect
+    languages: 0000000001000000
+    values:
+    - Connect
+    - "\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u0438\u0442\u044C\u0441\u044F"
+  - key: UI_Find_Random
+    languages: 0000000001000000
+    values:
+    - 'Find random
+
+      room'
+    - "\u041D\u0430\u0439\u0442\u0438 \u0441\u043B\u0443\u0447\u0430\u0439\u043D\u0443\u044E\n\u043A\u043E\u043C\u043D\u0430\u0442\u0443"
+  - key: UI_Back
+    languages: 0000000001000000
+    values:
+    - Back
+    - "\u041D\u0430\u0437\u0430\u0434"
+  - key: UI_Language_Short
+    languages: 0000000001000000
+    values:
+    - En
+    - Ru
+  - key: UI_Input
+    languages: 0000000001000000
+    values:
+    - Input...
+    - "\u0412\u0432\u043E\u0434..."
+  - key: UI_Remove
+    languages: 0000000001000000
+    values:
+    - Remove
+    - "\u0423\u0434\u0430\u043B\u0438\u0442\u044C"
+  - key: UI_Enter
+    languages: 0000000001000000
+    values:
+    - Enter
+    - "\u0412\u0432\u043E\u0434"
+  - key: UI_Room_Name
+    languages: 0000000001000000
+    values:
+    - 'Room name:'
+    - "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u043E\u043C\u043D\u0430\u0442\u044B:"
+  - key: UI_Loading0
+    languages: 0000000001000000
+    values:
+    - Loading
+    - "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430"
+  - key: UI_Loading1
+    languages: 0000000001000000
+    values:
+    - Loading.
+    - "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430."
+  - key: UI_Loading2
+    languages: 0000000001000000
+    values:
+    - Loading..
+    - "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430.."
+  - key: UI_Loading3
+    languages: 0000000001000000
+    values:
+    - Loading...
+    - "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..."
+  - key: UI_Cancel
+    languages: 0000000001000000
+    values:
+    - Cancel
+    - "\u041E\u0442\u043C\u0435\u043D\u0430"
+  - key: UI_Room_Not_Found
+    languages: 0000000001000000
+    values:
+    - Room with such a name is not found
+    - "\u041A\u043E\u043C\u043D\u0430\u0442\u0430 \u0441 \u0442\u0430\u043A\u0438\u043C
+      \u0438\u043C\u0435\u043D\u0435\u043C \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u0430"
+  - key: UI_Continue
+    languages: 0000000001000000
+    values:
+    - Continue
+    - "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"
+  - key: UI_Enemy_Left_Game
+    languages: 0000000001000000
+    values:
+    - 'Enemy has left the game!
+
+      You won!'
+    - "\u041F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A \u043F\u043E\u043A\u0438\u043D\u0443\u043B
+      \u0438\u0433\u0440\u0443!\n\u0412\u044B \u043F\u043E\u0431\u0435\u0434\u0438\u043B\u0438!"
+  - key: UI_Great
+    languages: 0000000001000000
+    values:
+    - Great
+    - "\u041E\u0442\u043B\u0438\u0447\u043D\u043E"
+  - key: UI_Ok
+    languages: 0000000001000000
+    values:
+    - Ok
+    - "\u041E\u043A"
+  - key: UI_You_Lose
+    languages: 0000000001000000
+    values:
+    - You lose.
+    - "\u0412\u044B \u043F\u0440\u043E\u0438\u0433\u0440\u0430\u043B\u0438"
+  - key: UI_You_Won
+    languages: 0000000001000000
+    values:
+    - 'Enemy is defeated!
+
+      Congratulations, you won!'
+    - "\u041F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A \u043F\u043E\u0432\u0435\u0440\u0436\u0435\u043D!\n\u041F\u043E\u0437\u0434\u0440\u0430\u0432\u043B\u044F\u044E,
+      \u0432\u044B \u043F\u043E\u0431\u0435\u0434\u0438\u043B\u0438!"
+  - key: UI_Yes
+    languages: 0000000001000000
+    values:
+    - Yes
+    - "\u0414\u0430"
+  - key: UI_No
+    languages: 0000000001000000
+    values:
+    - No
+    - "\u041D\u0435\u0442"
+  - key: UI_Wanna_Leave_Game_Question
+    languages: 0000000001000000
+    values:
+    - Are you sure you want to give up and leave the game?
+    - "\u0412\u044B \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E
+      \u0445\u043E\u0442\u0438\u0442\u0435 \u0441\u0434\u0430\u0442\u044C\u0441\u044F
+      \u0438 \u043F\u043E\u043A\u0438\u043D\u0443\u0442\u044C \u0438\u0433\u0440\u0443?"
