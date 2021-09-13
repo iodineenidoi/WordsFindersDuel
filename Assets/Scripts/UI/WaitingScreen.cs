@@ -13,10 +13,11 @@ namespace UI
         [SerializeField] private LoadingCircles loadingCircles = null;
         [SerializeField] private TextChanger textChanger = null;
         [SerializeField] private Button cancelButton = null;
+        [SerializeField] private Button playWithBotButton = null;
 
         private Action cancelButtonPressedCallback = null;
 
-        public void Show(Action callback = null, string roomName = null)
+        public void Show(Action callback = null, string roomName = null, bool showPlayWithBotButton = false)
         {
             loadingCircles.StartLoading();
             textChanger.StartChanger();
@@ -42,6 +43,8 @@ namespace UI
                 roomNameRoot.SetActive(true);
                 roomNameText.text = roomName;
             }
+
+            playWithBotButton.gameObject.SetActive(showPlayWithBotButton);
         }
 
         public void Hide()
@@ -52,6 +55,7 @@ namespace UI
             cancelButtonPressedCallback = null;
             roomNameRoot.SetActive(false);
             roomNameText.text = string.Empty;
+            playWithBotButton.gameObject.SetActive(false);
         }
 
         public void OnCancelButtonPressed()

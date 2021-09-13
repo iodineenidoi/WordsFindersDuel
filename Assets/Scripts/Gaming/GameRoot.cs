@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Bots;
+using Core;
 using Entities;
-using Networking;
 using Photon.Pun;
 using TMPro;
 using UI;
@@ -11,9 +12,10 @@ namespace Gaming
 {
     public class GameRoot : MonoBehaviour
     {
+        [SerializeField] private GameController gameController = null;
+        [SerializeField] private GameWithBotController gameWithBotController = null;
         [SerializeField] private LettersInputController lettersInputController = null;
         [SerializeField] private PlayersHealthController playersHealthController = null;
-        [SerializeField] private NetworkController networkController = null;
         [SerializeField] private GameObject canvas = null;
         [SerializeField] private string myWordColorHex = "00FF00FF";
         [SerializeField] private string allyWordColorHex = "FF0000FF";
@@ -23,9 +25,9 @@ namespace Gaming
 
         private readonly List<UsedWord> _emptyList = new List<UsedWord>();
         
-        public void Launch(string firstLetters)
+        public void Launch(string firstLetters, DamageController damageController)
         {
-            playersHealthController.ResetPlayers();
+            playersHealthController.ResetPlayers(damageController);
             UpdateLetters(firstLetters);
             UpdateWordsScreen(_emptyList);
             canvas.SetActive(true);
@@ -46,6 +48,13 @@ namespace Gaming
             PhotonNetwork.LeaveRoom();
             lobbyMenu.ShowMainMenu();
             canvas.SetActive(false);
+
+            if (gameController.GameType == GameType.Bot)
+            {
+                gameWithBotController.EndWithBot();
+            }
+
+            gameController.GameType = GameType.None;
         }
         
         public void UpdateWordsScreen(List<UsedWord> words)

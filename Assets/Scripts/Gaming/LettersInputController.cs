@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Text;
+using Bots;
+using Core;
 using Localization;
 using Networking;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +12,9 @@ namespace Gaming
 {
     public class LettersInputController : MonoBehaviour
     {
+        [SerializeField] private GameController gameController = null;
         [SerializeField] private NetworkController networkController = null;
+        [SerializeField] private GameWithBotController gameWithBotController = null;
         [SerializeField] private Button enterButton = null;
         [SerializeField] private TextLocalizer enterButtonText = null;
         [SerializeField] private LetterButton[] letterButtons = new LetterButton[0];
@@ -18,7 +23,18 @@ namespace Gaming
 
         public void SendWord()
         {
-            networkController.SendWord(_stringBuilder.ToString());
+            switch (gameController.GameType)
+            {
+                case GameType.Bot:
+                    gameWithBotController.TryWord(_stringBuilder.ToString(), PhotonNetwork.NickName);
+                    break;
+                case GameType.Network:
+                    networkController.SendWord(_stringBuilder.ToString());
+                    break;
+                default:
+                    throw new Exception($"Has no idea how to react on {gameController.GameType} game type!");
+            }
+
             ResetInput();
         }
         

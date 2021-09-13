@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Localization;
 using UI;
 using UnityEngine;
@@ -8,11 +7,15 @@ namespace Core
 {
     public class GameController : MonoBehaviour
     {
+        public const int LettersToGenerateForAnagrams = 15;
+
         [SerializeField] private LobbyMenu lobbyMenu = null;
 
         private bool _translationsLoaded = false;
         private bool _languageSet = false;
         
+        public GameType GameType { get; set; }
+
         public void ExitGame()
         {
 #if UNITY_EDITOR

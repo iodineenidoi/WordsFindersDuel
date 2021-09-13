@@ -12,11 +12,13 @@ namespace Localization
         private object[] _localizationArgs = null;
         private TMP_Text _text = null;
 
+        private TMP_Text Text => _text != null ? _text : (_text = GetComponent<TMP_Text>());
+
         public void Localize(string key, params object[] args)
         {
             localizationKey = key;
             _localizationArgs = args ?? new object[0];
-            _text.text = string.Format(Localizer.GetTranslation(key), _localizationArgs);
+            Text.text = string.Format(Localizer.GetTranslation(key), _localizationArgs);
         }
 
         private void OnLanguageChanged()
