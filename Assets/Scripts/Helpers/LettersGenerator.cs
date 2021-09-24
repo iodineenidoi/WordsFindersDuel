@@ -1,21 +1,24 @@
 ﻿using System.Linq;
+using Core;
 using UnityEngine;
 
 namespace Helpers
 {
-    public static class LettersGenerator
+    public class LettersGenerator : MonoBehaviour
     {
-        private const string RuLetters = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-
-        public static string GetUniqueRandomLetters(int length)
+        [SerializeField] private AnagramsController anagramsController = null;
+        
+        public string GetUniqueRandomLetters(int length)
         {
-            return new string(RuLetters.OrderBy(_ => Random.Range(0f, 1f)).ToArray())
-                .Substring(0, Mathf.Min(RuLetters.Length, length));
+            string letters = anagramsController.CurrentWordsCollection.Letters;
+            
+            return new string(letters.OrderBy(_ => Random.Range(0f, 1f)).ToArray())
+                .Substring(0, Mathf.Min(letters.Length, length));
         }
 
-        public static string UpdateRandomLetters(string prevLetters)
+        public string UpdateRandomLetters(string prevLetters)
         {
-            string letters = null;
+            string letters;
             do
             {
                 letters = GetUniqueRandomLetters(prevLetters.Length);
@@ -25,7 +28,7 @@ namespace Helpers
             return letters;
         }
 
-        private static bool HasSameLetters(string first, string second)
+        private bool HasSameLetters(string first, string second)
         {
             return string.Concat(first.OrderBy(c => c)) == string.Concat(second.OrderBy(c => c));
         }

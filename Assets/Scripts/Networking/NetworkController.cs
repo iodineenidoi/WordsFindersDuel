@@ -25,6 +25,7 @@ namespace Networking
         [SerializeField] private LobbyMenu lobbyMenu = null;
         [SerializeField] private GameRoot gameRoot = null;
         [SerializeField] private AnagramsController anagramsController = null;
+        [SerializeField] private LettersGenerator lettersGenerator = null;
 
         private List<UsedWord> _usedWords = new List<UsedWord>();
         private string _currentLetters = null;
@@ -120,7 +121,7 @@ namespace Networking
                     photonView.RPC(
                         nameof(UpdateLetters),
                         RpcTarget.All,
-                        GenerateLetters());
+                        lettersGenerator.UpdateRandomLetters(_currentLetters));
                 }
             }
         }
@@ -206,25 +207,14 @@ namespace Networking
 
                 Debug.Log("I'm the master now and we gonna start the game");
                 
-                string generatedLetters = GenerateLetters();
+                string generatedLetters = lettersGenerator
+                    .GetUniqueRandomLetters(GameController.LettersToGenerateForAnagrams);
                 
                 photonView.RPC(
                     nameof(RpcStartGame),
                     RpcTarget.All,
                     generatedLetters);
             }
-        }
-
-        private string GenerateLetters()
-        {
-            string generatedLetters = null;
-            do
-            {
-                generatedLetters =
-                    LettersGenerator.GetUniqueRandomLetters(GameController.LettersToGenerateForAnagrams);
-            } while (generatedLetters == anagramsController.CurrentLetters);
-
-            return generatedLetters;
         }
 
         private void UpdateAnagramAndWords()

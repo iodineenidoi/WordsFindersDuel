@@ -537,6 +537,7 @@ MonoBehaviour:
   lobbyMenu: {fileID: 1117603273}
   gameRoot: {fileID: 1180914849}
   anagramsController: {fileID: 1734557780}
+  lettersGenerator: {fileID: 1734557781}
 --- !u!4 &169566934
 Transform:
   m_ObjectHideFlags: 0
@@ -7892,6 +7893,7 @@ GameObject:
   - component: {fileID: 1734557778}
   - component: {fileID: 1734557779}
   - component: {fileID: 1734557780}
+  - component: {fileID: 1734557781}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -7942,6 +7944,7 @@ MonoBehaviour:
   anagramsController: {fileID: 1734557780}
   gameRoot: {fileID: 1180914849}
   messageBox: {fileID: 1420244113}
+  lettersGenerator: {fileID: 1734557781}
 --- !u!114 &1734557780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7956,6 +7959,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anagramsCollections:
   - {fileID: 11400000, guid: 0c96cf83a02a21844b3c8134aabfb06b, type: 2}
+  - {fileID: 11400000, guid: 54d5060454b47e14f8238e00089c59d5, type: 2}
+--- !u!114 &1734557781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734557776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420a1d9fec6942e9a5ef36a708e2ca0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anagramsController: {fileID: 1734557780}
 --- !u!1001 &1740157710
 PrefabInstance:
   m_ObjectHideFlags: 0

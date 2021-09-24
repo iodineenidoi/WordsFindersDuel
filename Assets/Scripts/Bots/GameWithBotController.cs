@@ -23,6 +23,7 @@ namespace Bots
         [SerializeField] private AnagramsController anagramsController = null;
         [SerializeField] private GameRoot gameRoot = null;
         [SerializeField] private MessageBox messageBox = null;
+        [SerializeField] private LettersGenerator lettersGenerator = null;
 
         private bool _isInGame = false;
         private string _currentLetters = "";
@@ -58,7 +59,7 @@ namespace Bots
         public void TryWord(string word, string playerName)
         {
             if (_usedWords.Any(x => x.word == word) ||
-                !anagramsController.AnagramWords.Contains(word)) 
+                !anagramsController.AnagramWords.Contains(word))
                 return;
 
             UsedWord newUsedWord = new UsedWord(word, playerName == PhotonNetwork.NickName);
@@ -70,8 +71,8 @@ namespace Bots
         private void UpdateAnagramAndWords()
         {
             _currentLetters = _currentLetters.IsNullOrWhiteSpace() 
-                ? LettersGenerator.GetUniqueRandomLetters(GameController.LettersToGenerateForAnagrams) 
-                : LettersGenerator.UpdateRandomLetters(_currentLetters);
+                ? lettersGenerator.GetUniqueRandomLetters(GameController.LettersToGenerateForAnagrams) 
+                : lettersGenerator.UpdateRandomLetters(_currentLetters);
 
             anagramsController.UpdateAnagramWords(_currentLetters);
             _delayToUpdateLetters = Random.Range(7f, 13f);
