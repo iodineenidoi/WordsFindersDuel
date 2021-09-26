@@ -1,11 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
 using Entities;
+using ExitGames.Client.Photon;
 using Gaming;
 using Helpers;
+using Localization;
 using Photon.Pun;
 using Photon.Realtime;
 using UI;
@@ -18,6 +19,7 @@ namespace Networking
     public class NetworkController : MonoBehaviourPunCallbacks
     {
         private const byte MaxPlayersCountInRoom = 2;
+        private const string LanguagePropKey = "C0";
 
         [SerializeField] private GameController gameController = null;
         [SerializeField] private MessageBox messageBox = null;
@@ -26,11 +28,16 @@ namespace Networking
         [SerializeField] private GameRoot gameRoot = null;
         [SerializeField] private AnagramsController anagramsController = null;
         [SerializeField] private LettersGenerator lettersGenerator = null;
+        [SerializeField] private Localizer localizer = null;
 
         private List<UsedWord> _usedWords = new List<UsedWord>();
         private string _currentLetters = null;
         private float _delayToUpdateLetters = -1f;
         private DamageController _damageController = null;
+        
+        private TypedLobby _typedLobby = new TypedLobby("customSqlLobby", LobbyType.SqlLobby);
+
+        private string MyRoomName => $"{Localizer.LanguageCode}:{PhotonNetwork.NickName}";
 
         public bool GameStarted { get; private set; }
 
@@ -47,31 +54,56 @@ namespace Networking
             StartGame();
         }
 
-        public void CreateRoom()
-        {
-            RoomOptions roomOptions = new RoomOptions
-            {
-                MaxPlayers = MaxPlayersCountInRoom,
-                IsVisible = false,
-            };
-
-            string roomName = NameGenerator.Get();
-            if (PhotonNetwork.CreateRoom(roomName, roomOptions))
-            {
-                waitingScreen.Show(HandleCancelCreateRoom, roomName);
-            }
-        }
-
         public void FindRandomRoom()
         {
-            if (PhotonNetwork.JoinRandomRoom())
+            string sqlFilter = $"{LanguagePropKey} = '{Localizer.LanguageCode}'";
+            bool joinResult = PhotonNetwork
+                .JoinRandomRoom(null, MaxPlayersCountInRoom, MatchmakingMode.FillRoom, _typedLobby, sqlFilter);
+            
+            if (joinResult)
             {
                 waitingScreen.Show(HandleCancelCreateRoom, showPlayWithBotButton: true);
             }
         }
 
+        public void CreateRandomRoom()
+        {
+            PhotonNetwork.CreateRoom(MyRoomName, GetRoomOptions(), _typedLobby);
+        }
+
+        public void CreateRoom()
+        {
+            RoomOptions roomOptions = GetRoomOptions();
+            roomOptions.IsVisible = false;
+
+            if (PhotonNetwork.CreateRoom(MyRoomName, roomOptions))
+            {
+                waitingScreen.Show(HandleCancelCreateRoom, MyRoomName);
+            }
+        }
+
         public void FindRoomByName(string roomName)
         {
+            if (!roomName.StartsWith(Localizer.LanguageCode))
+            {
+                messageBox.Show(
+                    "UI_Need_Change_Language",
+                    "UI_Yes",
+                    "UI_No",
+                    () =>
+                    {
+                        LocalizationLanguage languageFromCode = Localizer.GetLanguageFromCode(roomName.Substring(0, 2));
+                        localizer.SetLanguage(languageFromCode);
+                        FindRoomByName(roomName);
+                    },
+                    () =>
+                    {
+                        lobbyMenu.ShowFindLobbyMenu();
+                    });
+
+                return;
+            }
+                
             if (PhotonNetwork.JoinRoom(roomName))
             {
                 waitingScreen.Show(HandleCancelCreateRoom);
@@ -106,7 +138,7 @@ namespace Networking
 
         private void Awake()
         {
-            PhotonNetwork.NickName = NameGenerator.Get();
+            PhotonNetwork.NickName = NameGenerator.Get(4, 7);
             PhotonNetwork.ConnectUsingSettings();
         }
 
@@ -221,6 +253,16 @@ namespace Networking
         {
             anagramsController.UpdateAnagramWords(_currentLetters);
             _delayToUpdateLetters = Random.Range(7f, 13f);
+        }
+        
+        private RoomOptions GetRoomOptions()
+        {
+            RoomOptions result = new RoomOptions();
+            result.CustomRoomProperties = new Hashtable {{LanguagePropKey, Localizer.LanguageCode}};
+            result.CustomRoomPropertiesForLobby = new[] {LanguagePropKey};
+            result.MaxPlayers = MaxPlayersCountInRoom;
+            result.IsVisible = true;
+            return result;
         }
     }
 }

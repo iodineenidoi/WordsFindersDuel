@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Extensions;
 using Photon.Pun;
+using Unity.Jobs.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace Localization
@@ -21,6 +22,8 @@ namespace Localization
         private static Dictionary<string, KeyTranslations> _translations = new Dictionary<string, KeyTranslations>();
 
         public static LocalizationLanguage Language { get; private set; }
+        public static string LanguageCode => Language.ToString().Substring(0, 2);
+        
         public static event Action OnLanguageChanged;
         public static event Action OnTranslationsLoaded;
 
@@ -29,6 +32,17 @@ namespace Localization
             return _translations.ContainsKey(key) 
                 ? _translations[key].values[(int) Language] 
                 : key;
+        }
+
+        public static LocalizationLanguage GetLanguageFromCode(string code)
+        {
+            string langString = Enum.GetNames(typeof(LocalizationLanguage)).First(x => x.StartsWith(code));
+            if (Enum.TryParse(langString, out LocalizationLanguage lang))
+            {
+                return lang;
+            }
+
+            throw new ArgumentException($"Invalid language code: {code}", nameof(code));
         }
 
         public void SetNextLanguage()
@@ -42,7 +56,7 @@ namespace Localization
             SetLanguage(_languages[_currentLanguageIndex]);
         }
 
-        private void SetLanguage(LocalizationLanguage language, bool saveLanguage = true)
+        public void SetLanguage(LocalizationLanguage language, bool saveLanguage = true)
         {
             Language = language;
             

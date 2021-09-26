@@ -28,7 +28,7 @@ namespace Networking
 
             if (returnCode == 32760)
             {
-                PhotonNetwork.CreateRoom(null, new RoomOptions());
+                networkController.CreateRandomRoom();
             }
         }
         

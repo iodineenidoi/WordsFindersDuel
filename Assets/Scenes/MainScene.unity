@@ -538,6 +538,7 @@ MonoBehaviour:
   gameRoot: {fileID: 1180914849}
   anagramsController: {fileID: 1734557780}
   lettersGenerator: {fileID: 1734557781}
+  localizer: {fileID: 1834469698}
 --- !u!4 &169566934
 Transform:
   m_ObjectHideFlags: 0
@@ -6825,7 +6826,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 70
-  m_CharacterLimit: 12
+  m_CharacterLimit: 14
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
