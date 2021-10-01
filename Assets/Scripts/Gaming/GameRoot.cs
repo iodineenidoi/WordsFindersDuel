@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Bots;
 using Core;
@@ -22,12 +23,16 @@ namespace Gaming
         [SerializeField] private TMP_Text wordsScreenText = null;
         [SerializeField] private MessageBox messageBox = null;
         [SerializeField] private LobbyMenu lobbyMenu = null;
+        [SerializeField] private PlayersAnimationsController playersAnimationsController = null;
 
         private readonly List<UsedWord> _emptyList = new List<UsedWord>();
-        
+        private int _firstPlayerHealth = -1;
+        private int _secondPlayerHealth = -1;
+
         public void Launch(string firstLetters, DamageController damageController)
         {
-            playersHealthController.ResetPlayers(damageController);
+            SetupDamageController(damageController);
+            SetupAnimations();
             UpdateLetters(firstLetters);
             UpdateWordsScreen(_emptyList);
             canvas.SetActive(true);
@@ -71,6 +76,42 @@ namespace Gaming
         public void UpdateLetters(string letters)
         {
             lettersInputController.SetNewLetters(letters);
+        }
+
+        private void SetupAnimations()
+        {
+            playersAnimationsController.StartPlayersAnimators();
+        }
+
+        private void SetupDamageController(DamageController damageController)
+        {
+            _firstPlayerHealth = damageController.FirstGamePlayer.Health;
+            _secondPlayerHealth = damageController.SecondGamePlayer.Health;
+            playersHealthController.ResetPlayers(damageController);
+            damageController.OnPlayersHealthChanged += HandlePlayersHealthChanged;
+            damageController.OnPlayerIsDead += HandlePlayerIsDead;
+        }
+
+        private void HandlePlayerIsDead(string playerName)
+        {
+            playersAnimationsController.SetTrigger(PlayerAnimationType.Die, playerName == PhotonNetwork.NickName);
+            // playersAnimationsController.StopPlayersAnimators();
+        }
+
+        private void HandlePlayersHealthChanged(int firstPlayerHealth, int secondPlayerHealth)
+        {
+            if (_firstPlayerHealth != firstPlayerHealth)
+            {
+                playersAnimationsController.SetTrigger(PlayerAnimationType.Attack, false);
+            }
+            
+            if (_secondPlayerHealth != secondPlayerHealth)
+            {
+                playersAnimationsController.SetTrigger(PlayerAnimationType.Attack, true);
+            }
+
+            _firstPlayerHealth = firstPlayerHealth;
+            _secondPlayerHealth = secondPlayerHealth;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Collections;
+using Core;
 using Networking;
 using Photon.Pun;
 using TMPro;
@@ -9,6 +10,7 @@ namespace Gaming
 {
     public class PlayersHealthController : MonoBehaviour
     {
+        [SerializeField] private int framesCountBeforeChangeHealth = 0;
         [SerializeField] private Color myHealthBarColor = Color.black;
         [SerializeField] private Color enemyHealthBarColor = Color.black;
         [SerializeField] private Image firstPlayerHealthValueImage = null;
@@ -18,7 +20,7 @@ namespace Gaming
 
         public void ResetPlayers(DamageController damageController)
         {
-            damageController.OnPlayersHealthChanged += UpdatePlayersHealth;
+            damageController.OnPlayersHealthChanged += UpdatePlayersHealthDelayed;
 
             if (PhotonNetwork.NickName == damageController.FirstGamePlayer.Name)
             {
@@ -32,6 +34,24 @@ namespace Gaming
             }
 
             UpdatePlayersHealth(damageController.FirstGamePlayer.Health, damageController.SecondGamePlayer.Health);
+        }
+
+        private void UpdatePlayersHealthDelayed(int firstPlayerHealth, int secondPlayerHealth)
+        {
+            StartCoroutine(UpdatePlayersHealthDelayed(
+                firstPlayerHealth,
+                secondPlayerHealth, 
+                framesCountBeforeChangeHealth));
+        }
+        
+        private IEnumerator UpdatePlayersHealthDelayed(int firstPlayerHealth, int secondPlayerHealth, int framesDelay)
+        {
+            while (framesDelay-- > 0)
+            {
+                yield return null;
+            }
+
+            UpdatePlayersHealth(firstPlayerHealth, secondPlayerHealth);
         }
 
         private void UpdatePlayersHealth(int firstPlayerHealth, int secondPlayerHealth)
