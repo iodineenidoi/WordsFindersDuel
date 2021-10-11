@@ -8,6 +8,7 @@ namespace Core
     public class GameController : MonoBehaviour
     {
         public const int LettersToGenerateForAnagrams = 15;
+        public const int FramesToAnimateDeath = 180;
 
         [SerializeField] private LobbyMenu lobbyMenu = null;
 

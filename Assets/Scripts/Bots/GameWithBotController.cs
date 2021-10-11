@@ -80,19 +80,29 @@ namespace Bots
 
         private void HandlePlayerIsDead(string playerName)
         {
+            StartCoroutine(HandlePlayerIsDeadDelayed(playerName));
+        }
+
+        private IEnumerator HandlePlayerIsDeadDelayed(string playerName)
+        {
+            for (int i = 0; i < GameController.FramesToAnimateDeath; i++)
+            {
+                yield return null;
+            }
+            
             _isInGame = false;
             if (PhotonNetwork.NickName == playerName)
             {
                 messageBox.Show(
-                    "UI_You_Won",
-                    "UI_Great",
+                    "UI_You_Lose",
+                    "UI_Ok",
                     PlayerIsDeadMessageBoxCallback);
             }
             else
             {
                 messageBox.Show(
-                    "UI_You_Lose",
-                    "UI_Ok",
+                    "UI_You_Won",
+                    "UI_Great",
                     PlayerIsDeadMessageBoxCallback);
             }
         }

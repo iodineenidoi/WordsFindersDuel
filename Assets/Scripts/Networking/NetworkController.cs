@@ -1,9 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
 using Entities;
-using ExitGames.Client.Photon;
 using Gaming;
 using Helpers;
 using Localization;
@@ -11,6 +11,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UI;
 using UnityEngine;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
 
 namespace Networking
@@ -110,20 +111,30 @@ namespace Networking
             }
         }
 
-        public void HandlePlayerIsDead(string playerName)
+        private void HandlePlayerIsDead(string playerName)
         {
+            StartCoroutine(HandlePlayerIsDeadDelayed(playerName));
+        }
+
+        private IEnumerator HandlePlayerIsDeadDelayed(string playerName)
+        {
+            for (int i = 0; i < GameController.FramesToAnimateDeath; i++)
+            {
+                yield return null;
+            }
+            
             if (PhotonNetwork.NickName == playerName)
             {
                 messageBox.Show(
-                    "UI_You_Won",
-                    "UI_Great",
+                    "UI_You_Lose",
+                    "UI_Ok",
                     gameRoot.Stop);
             }
             else
             {
                 messageBox.Show(
-                    "UI_You_Lose",
-                    "UI_Ok",
+                    "UI_You_Won",
+                    "UI_Great",
                     gameRoot.Stop);
             }
         }

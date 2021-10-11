@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using Bots;
 using Core;
@@ -13,6 +13,7 @@ namespace Gaming
 {
     public class GameRoot : MonoBehaviour
     {
+        [SerializeField] private int framesToSkipBeforeRunDeathAnimation = 60;
         [SerializeField] private GameController gameController = null;
         [SerializeField] private GameWithBotController gameWithBotController = null;
         [SerializeField] private LettersInputController lettersInputController = null;
@@ -94,8 +95,17 @@ namespace Gaming
 
         private void HandlePlayerIsDead(string playerName)
         {
+            StartCoroutine(HandlePlayerIsDeadDelayed(playerName, framesToSkipBeforeRunDeathAnimation));
+        }
+
+        private IEnumerator HandlePlayerIsDeadDelayed(string playerName, int framesDelay)
+        {
+            while (framesDelay-- > 0)
+            {
+                yield return null;
+            }
+            
             playersAnimationsController.SetTrigger(PlayerAnimationType.Die, playerName == PhotonNetwork.NickName);
-            // playersAnimationsController.StopPlayersAnimators();
         }
 
         private void HandlePlayersHealthChanged(int firstPlayerHealth, int secondPlayerHealth)

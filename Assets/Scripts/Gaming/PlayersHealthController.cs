@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using Core;
-using Networking;
 using Photon.Pun;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +17,11 @@ namespace Gaming
         [SerializeField] private Image secondPlayerHealthValueImage = null;
         [SerializeField] private TMP_Text firstPlayerHealthValueText = null;
         [SerializeField] private TMP_Text secondPlayerHealthValueText = null;
-
+        [SerializeField] private FlyingDamageTextController[] flyingDamageTextController = { };
+        
+        private int _firstPlayerHealth = -1;
+        private int _secondPlayerHealth = -1;
+        
         public void ResetPlayers(DamageController damageController)
         {
             damageController.OnPlayersHealthChanged += UpdatePlayersHealthDelayed;
@@ -56,6 +60,19 @@ namespace Gaming
 
         private void UpdatePlayersHealth(int firstPlayerHealth, int secondPlayerHealth)
         {
+            if (_firstPlayerHealth != firstPlayerHealth && firstPlayerHealth != 100)
+            {
+                flyingDamageTextController[0].ShowDamage(firstPlayerHealth - _firstPlayerHealth);
+            }
+            
+            if (_secondPlayerHealth != secondPlayerHealth && secondPlayerHealth != 100)
+            {
+                flyingDamageTextController[1].ShowDamage(secondPlayerHealth - _secondPlayerHealth);
+            }
+            
+            _firstPlayerHealth = firstPlayerHealth;
+            _secondPlayerHealth = secondPlayerHealth;
+
             firstPlayerHealthValueImage.fillAmount = firstPlayerHealth / 100f;
             secondPlayerHealthValueImage.fillAmount = secondPlayerHealth / 100f;
 
