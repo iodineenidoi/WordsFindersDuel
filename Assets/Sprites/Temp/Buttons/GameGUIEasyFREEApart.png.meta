@@ -334,11 +334,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameGUIEasyFREEApart_11
+      name: Logs_Background
       rect:
         serializedVersion: 2
         x: 3669
-        y: 4574
+        y: 4573
         width: 962
         height: 1188
       alignment: 0
@@ -570,7 +570,7 @@ TextureImporter:
         serializedVersion: 2
         x: 6702
         y: 4632
-        width: 747
+        width: 746
         height: 533
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

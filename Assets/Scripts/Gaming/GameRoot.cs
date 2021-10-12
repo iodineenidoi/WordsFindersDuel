@@ -4,6 +4,7 @@ using System.Text;
 using Bots;
 using Core;
 using Entities;
+using Localization;
 using Photon.Pun;
 using TMPro;
 using UI;
@@ -68,7 +69,12 @@ namespace Gaming
             StringBuilder builder = new StringBuilder(words.Count);
             foreach (UsedWord word in words)
             {
-                builder.AppendLine($"<color=#{(word.isMine ? myWordColorHex : allyWordColorHex)}>{word.word}</color>");
+                string localizationKey = word.isMine
+                    ? "UI_You_Used_Spell"
+                    : "UI_Enemy_Used_Spell";
+
+                string newLine = string.Format(Localizer.GetTranslation(localizationKey), word.word, word.word.Length);
+                builder.AppendLine(newLine);
             }
 
             wordsScreenText.text = builder.ToString();
