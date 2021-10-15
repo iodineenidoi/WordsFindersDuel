@@ -1909,7 +1909,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameGUIEasyFREEApart_86
+      name: Loading_Star_Big
       rect:
         serializedVersion: 2
         x: 5109
@@ -1930,7 +1930,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameGUIEasyFREEApart_87
+      name: Loading_Star_Small
       rect:
         serializedVersion: 2
         x: 5415
@@ -1951,7 +1951,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameGUIEasyFREEApart_88
+      name: Loading_Star_Big_Shadow
       rect:
         serializedVersion: 2
         x: 5697
@@ -1972,7 +1972,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameGUIEasyFREEApart_89
+      name: Loading_Star_Small_Shadow
       rect:
         serializedVersion: 2
         x: 6010

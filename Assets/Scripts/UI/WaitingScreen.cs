@@ -11,25 +11,27 @@ namespace UI
         [SerializeField] private GameObject roomNameRoot = null;
         [SerializeField] private TMP_Text roomNameText = null;
         [SerializeField] private LoadingCircles loadingCircles = null;
+        [SerializeField] private RectTransform flyingStars = null;
         [SerializeField] private TextChanger textChanger = null;
         [SerializeField] private Button cancelButton = null;
         [SerializeField] private Button playWithBotButton = null;
 
-        private Action cancelButtonPressedCallback = null;
+        private Action _cancelButtonPressedCallback = null;
 
         public void Show(Action callback = null, string roomName = null, bool showPlayWithBotButton = false)
         {
-            loadingCircles.StartLoading();
+            // loadingCircles.StartLoading();
+            flyingStars.gameObject.SetActive(true);
             textChanger.StartChanger();
 
             if (callback != null)
             {
-                cancelButtonPressedCallback = callback;
+                _cancelButtonPressedCallback = callback;
                 cancelButton.gameObject.SetActive(true);
             }
             else
             {
-                cancelButtonPressedCallback = null;
+                _cancelButtonPressedCallback = null;
                 cancelButton.gameObject.SetActive(false);
             }
 
@@ -49,10 +51,11 @@ namespace UI
 
         public void Hide()
         {
-            loadingCircles.StopLoading();
+            // loadingCircles.StopLoading();
             textChanger.StopChanger();
+            flyingStars.gameObject.SetActive(false);
             cancelButton.gameObject.SetActive(false);
-            cancelButtonPressedCallback = null;
+            _cancelButtonPressedCallback = null;
             roomNameRoot.SetActive(false);
             roomNameText.text = string.Empty;
             playWithBotButton.gameObject.SetActive(false);
@@ -62,7 +65,7 @@ namespace UI
         {
             try
             {
-                cancelButtonPressedCallback?.Invoke();
+                _cancelButtonPressedCallback?.Invoke();
             }
             catch (Exception e)
             {
