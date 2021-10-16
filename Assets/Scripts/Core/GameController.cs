@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Localization;
+using Networking;
 using UI;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Core
         public const int FramesToAnimateDeath = 180;
 
         [SerializeField] private LobbyMenu lobbyMenu = null;
+        [SerializeField] private ConnectionsController connectionsController = null;
 
         private bool _translationsLoaded = false;
         private bool _languageSet = false;
@@ -28,7 +30,7 @@ namespace Core
 
         private IEnumerator StartGameAfterLocalizationDone()
         {
-            while (!_translationsLoaded || !_languageSet)
+            while (!_translationsLoaded || !_languageSet || !connectionsController.ConnectedToMaster)
             {
                 yield return null;
             }

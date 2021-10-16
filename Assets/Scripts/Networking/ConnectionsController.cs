@@ -14,12 +14,15 @@ namespace Networking
         [SerializeField] private WaitingScreen waitingScreen = null;
         [SerializeField] private LobbyMenu lobbyMenu = null;
         [SerializeField] private GameRoot gameRoot = null;
+
+        public bool ConnectedToMaster { get; private set; } = false;
         
         #region PhotonCallbacks
 
         public override void OnConnectedToMaster()
         {
             Debug.Log("Connected to master");
+            ConnectedToMaster = true;
         }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
