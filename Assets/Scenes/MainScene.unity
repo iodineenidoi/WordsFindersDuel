@@ -244,6 +244,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff26f70278f4a9c937d83dd705665ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &47999860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 47999862}
+  - component: {fileID: 47999861}
+  m_Layer: 0
+  m_Name: AdsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &47999861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47999860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34c0b1c02e4491cb35478506413e2a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  androidGameId: 4412273
+  androidAdUnitId: WordsFindersDuel
+  testMode: 1
+  enablePerPlacementMode: 1
+--- !u!4 &47999862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47999860}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -115.34836, y: 1023.5187, z: -377.29456}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &53438799
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +657,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &169566935
 MonoBehaviour:
@@ -4786,7 +4833,7 @@ Transform:
   m_Children:
   - {fileID: 1124725481}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &906802709
 MonoBehaviour:
@@ -5154,7 +5201,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &987465757
 GameObject:
@@ -5787,7 +5834,7 @@ Transform:
   - {fileID: 1820388092}
   - {fileID: 1252018796}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1117603273
 MonoBehaviour:
@@ -6514,7 +6561,7 @@ Transform:
   m_Children:
   - {fileID: 168659995}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1180914849
 MonoBehaviour:
@@ -6540,6 +6587,7 @@ MonoBehaviour:
   messageBox: {fileID: 1420244113}
   lobbyMenu: {fileID: 1117603273}
   playersAnimationsController: {fileID: 1180914852}
+  adsController: {fileID: 47999861}
 --- !u!114 &1180914850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7686,7 +7734,7 @@ Transform:
   m_Children:
   - {fileID: 1870516679}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1420244113
 MonoBehaviour:
@@ -9877,7 +9925,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1734557778
 MonoBehaviour:

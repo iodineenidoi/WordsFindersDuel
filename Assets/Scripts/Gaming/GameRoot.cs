@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Ads;
 using Bots;
 using Core;
 using Entities;
@@ -26,6 +27,7 @@ namespace Gaming
         [SerializeField] private MessageBox messageBox = null;
         [SerializeField] private LobbyMenu lobbyMenu = null;
         [SerializeField] private PlayersAnimationsController playersAnimationsController = null;
+        [SerializeField] private AdsController adsController = null;
 
         private readonly List<UsedWord> _emptyList = new List<UsedWord>();
         private int _firstPlayerHealth = -1;
@@ -62,6 +64,11 @@ namespace Gaming
             }
 
             gameController.GameType = GameType.None;
+
+            if (adsController.IsGameToShow && adsController.AdLoaded && adsController.IsReady)
+            {
+                adsController.ShowAd();
+            }
         }
         
         public void UpdateWordsScreen(List<UsedWord> words)
