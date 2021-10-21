@@ -161,10 +161,14 @@ namespace Networking
                 if (_delayToUpdateLetters <= 0f)
                 {
                     _delayToUpdateLetters = float.MaxValue;
-                    photonView.RPC(
-                        nameof(UpdateLetters),
-                        RpcTarget.All,
-                        lettersGenerator.UpdateRandomLetters(_currentLetters));
+                    _currentLetters = lettersGenerator.UpdateRandomLetters(_currentLetters);
+                    UpdateAnagramAndWords(() =>
+                    {
+                        photonView.RPC(
+                            nameof(UpdateLetters),
+                            RpcTarget.All,
+                            _currentLetters);
+                    });
                 }
             }
         }
@@ -185,15 +189,13 @@ namespace Networking
             _damageController.OnPlayerIsDead += HandlePlayerIsDead;
 
             gameController.GameType = GameType.Network;
-            
             _currentLetters = firstLetters;
-            UpdateAnagramAndWords();
 
             waitingScreen.Hide();
             lobbyMenu.HideAll();
             gameRoot.Launch(_currentLetters, _damageController);
 
-            GameStarted = true;
+            GameStarted = true; 
         }
 
         [PunRPC]
@@ -224,7 +226,6 @@ namespace Networking
         private void UpdateLetters(string letters)
         {
             _currentLetters = letters;
-            UpdateAnagramAndWords();
             gameRoot.UpdateLetters(_currentLetters);
         }
 
@@ -250,20 +251,29 @@ namespace Networking
 
                 Debug.Log("I'm the master now and we gonna start the game");
                 
-                string generatedLetters = lettersGenerator
+                _currentLetters = lettersGenerator
                     .GetUniqueRandomLetters(GameController.LettersToGenerateForAnagrams);
-                
-                photonView.RPC(
-                    nameof(RpcStartGame),
-                    RpcTarget.All,
-                    generatedLetters);
+
+                UpdateAnagramAndWords(() =>
+                {
+                    photonView.RPC(
+                        nameof(RpcStartGame),
+                        RpcTarget.All,
+                        _currentLetters);
+                });
             }
         }
 
-        private void UpdateAnagramAndWords()
+        private void UpdateAnagramAndWords(Action callback)
         {
-            anagramsController.UpdateAnagramWords(_currentLetters);
-            _delayToUpdateLetters = Random.Range(7f, 13f);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                StartCoroutine(anagramsController.UpdateAnagramWords(_currentLetters, () =>
+                {
+                    _delayToUpdateLetters = Random.Range(7f, 13f);
+                    callback?.Invoke();
+                }));
+            }
         }
         
         private RoomOptions GetRoomOptions()

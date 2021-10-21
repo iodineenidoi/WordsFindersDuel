@@ -42,11 +42,13 @@ namespace Bots
             _damageController = new DamageController(PhotonNetwork.NickName, BotName);
             _damageController.OnPlayerIsDead += HandlePlayerIsDead;
 
-            UpdateAnagramAndWords();
-            gameController.GameType = GameType.Bot;
+            UpdateAnagramAndWords(() =>
+            {
+                gameController.GameType = GameType.Bot;
             
-            gameRoot.Launch(_currentLetters, _damageController);
-            _isInGame = true;
+                gameRoot.Launch(_currentLetters, _damageController);
+                _isInGame = true;
+            });
         }
 
         public void EndWithBot()
@@ -68,14 +70,17 @@ namespace Bots
             _damageController.ChangePlayerHealth(playerName, word.Length, true);
         }
 
-        private void UpdateAnagramAndWords()
+        private void UpdateAnagramAndWords(Action callback)
         {
             _currentLetters = _currentLetters.IsNullOrWhiteSpace() 
                 ? lettersGenerator.GetUniqueRandomLetters(GameController.LettersToGenerateForAnagrams) 
                 : lettersGenerator.UpdateRandomLetters(_currentLetters);
 
-            anagramsController.UpdateAnagramWords(_currentLetters);
-            _delayToUpdateLetters = Random.Range(7f, 13f);
+            StartCoroutine(anagramsController.UpdateAnagramWords(_currentLetters, () =>
+            {
+                _delayToUpdateLetters = Random.Range(7f, 13f);
+                callback?.Invoke();
+            }));
         }
 
         private void HandlePlayerIsDead(string playerName)
@@ -124,8 +129,11 @@ namespace Bots
             _delayToUpdateLetters -= Time.deltaTime;
             if (_delayToUpdateLetters <= 0f)
             {
-                UpdateAnagramAndWords();
-                gameRoot.UpdateLetters(anagramsController.CurrentLetters);
+                _delayToUpdateLetters = float.MaxValue;
+                UpdateAnagramAndWords(() =>
+                {
+                    gameRoot.UpdateLetters(anagramsController.CurrentLetters);
+                });
             }
         }
 
