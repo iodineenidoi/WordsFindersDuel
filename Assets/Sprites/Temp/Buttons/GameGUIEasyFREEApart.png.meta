@@ -565,7 +565,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameGUIEasyFREEApart_22
+      name: Logs_Background_Small
       rect:
         serializedVersion: 2
         x: 6702
@@ -4429,12 +4429,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameGUIEasyFREEApart_206
+      name: Yellow_Arrow_Right
       rect:
         serializedVersion: 2
-        x: 4409
+        x: 4411
         y: 1035
-        width: 183
+        width: 180
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -4618,12 +4618,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameGUIEasyFREEApart_215
+      name: Green_Arrow_Right
       rect:
         serializedVersion: 2
-        x: 6200
+        x: 6202
         y: 1035
-        width: 184
+        width: 180
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -5143,12 +5143,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GameGUIEasyFREEApart_240
+      name: Settings_Button
       rect:
         serializedVersion: 2
-        x: 7588
+        x: 7590
         y: 827
-        width: 184
+        width: 180
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

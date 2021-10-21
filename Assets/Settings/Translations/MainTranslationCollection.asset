@@ -184,3 +184,15 @@ MonoBehaviour:
       <color=#9D2929><u>\"{0}\"</u></color> \u0438 \u043D\u0430\u043D\u0435\u0441
       \u0432\u0430\u043C <color=#9D2929><u>{1}</u></color> \u0443\u0440\u043E\u043D\u0430
       \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044E!"
+  - key: UI_Games_Count_To_Show_Ad
+    languages: 0000000001000000
+    values:
+    - Games count to show ad
+    - "\u041A\u043E\u043B-\u0432\u043E \u0438\u0433\u0440 \u0434\u043B\u044F \u043F\u043E\u043A\u0430\u0437\u0430
+      \u0440\u0435\u043A\u043B\u0430\u043C\u044B"
+  - key: UI_Need_Change_Language
+    languages: 0000000001000000
+    values:
+    - Change language to play the game?
+    - "\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u044F\u0437\u044B\u043A \u0434\u043B\u044F
+      \u0438\u0433\u0440\u044B?"

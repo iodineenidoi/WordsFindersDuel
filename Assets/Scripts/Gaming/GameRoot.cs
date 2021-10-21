@@ -65,7 +65,7 @@ namespace Gaming
 
             gameController.GameType = GameType.None;
 
-            if (adsController.IsGameToShow && adsController.AdLoaded && adsController.IsReady)
+            if (adsController.AdLoaded && adsController.IsReady)
             {
                 adsController.ShowAd();
             }
