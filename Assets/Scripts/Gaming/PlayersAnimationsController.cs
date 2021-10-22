@@ -25,13 +25,5 @@ namespace Gaming
                 playerAnimators[i].StartPlayback();
             }
         }
-
-        public void StopPlayersAnimators()
-        {
-            foreach (Animator animator in playerAnimators)
-            {
-                animator.StopPlayback();
-            }
-        }
     }
 }

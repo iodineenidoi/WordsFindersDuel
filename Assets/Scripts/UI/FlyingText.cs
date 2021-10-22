@@ -10,6 +10,7 @@ namespace UI
         [SerializeField] private Vector2 startSize = Vector2.zero;
         [SerializeField] private Vector2 endSize = Vector2.zero;
         [SerializeField] private Vector2 startPos = Vector2.zero;
+        [SerializeField] private Vector2 endPos = Vector2.zero;
         [SerializeField] private float speed = 0.5f;
 
         private float _interpolater = 0f;
@@ -35,14 +36,16 @@ namespace UI
             _interpolater = 0f;
             text.rectTransform.anchoredPosition = startPos;
             text.rectTransform.sizeDelta = startSize;
+            text.alpha = 1f;
         }
 
         private void Update()
         {
             text.rectTransform.sizeDelta = Vector2.Lerp(startSize, endSize, _interpolater);
+            text.rectTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, _interpolater);
+            text.alpha = Mathf.Lerp(1f, 0f, _interpolater);
+            
             _interpolater += speed * Time.deltaTime;
-
-            text.rectTransform.anchoredPosition += Vector2.up * 0.5f;
 
             if (_interpolater >= 1f)
             {

@@ -28,6 +28,7 @@ namespace Gaming
         [SerializeField] private LobbyMenu lobbyMenu = null;
         [SerializeField] private PlayersAnimationsController playersAnimationsController = null;
         [SerializeField] private AdsController adsController = null;
+        [SerializeField] private BackgroundController backgroundController = null;
 
         private readonly List<UsedWord> _emptyList = new List<UsedWord>();
         private int _firstPlayerHealth = -1;
@@ -40,6 +41,7 @@ namespace Gaming
             UpdateLetters(firstLetters);
             UpdateWordsScreen(_emptyList);
             canvas.SetActive(true);
+            backgroundController.SetBattleBackground();
         }
 
         public void OnExitButtonClicked()
@@ -57,7 +59,8 @@ namespace Gaming
             PhotonNetwork.LeaveRoom();
             lobbyMenu.ShowMainMenu();
             canvas.SetActive(false);
-
+            backgroundController.SetLobbyBackground();
+            
             if (gameController.GameType == GameType.Bot)
             {
                 gameWithBotController.EndWithBot();
