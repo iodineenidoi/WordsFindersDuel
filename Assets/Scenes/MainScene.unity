@@ -1341,6 +1341,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Words
 
+    Finders
+
     Duel'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 29e420b0a0fd73a40864aa6d43b0b1b0, type: 2}
@@ -1368,8 +1370,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 204
-  m_fontSizeBase: 204
+  m_fontSize: 174
+  m_fontSizeBase: 174
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
