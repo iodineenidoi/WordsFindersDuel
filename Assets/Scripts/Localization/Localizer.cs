@@ -36,7 +36,12 @@ namespace Localization
 
         public static LocalizationLanguage GetLanguageFromCode(string code)
         {
-            string langString = Enum.GetNames(typeof(LocalizationLanguage)).First(x => x.StartsWith(code));
+            string langString = Enum.GetNames(typeof(LocalizationLanguage)).FirstOrDefault(x => x.StartsWith(code));
+            if (langString.IsNullOrWhiteSpace())
+            {
+                return LocalizationLanguage.English;
+            }
+            
             if (Enum.TryParse(langString, out LocalizationLanguage lang))
             {
                 return lang;
