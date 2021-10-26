@@ -196,3 +196,44 @@ MonoBehaviour:
     - Change language to play the game?
     - "\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u044F\u0437\u044B\u043A \u0434\u043B\u044F
       \u0438\u0433\u0440\u044B?"
+  - key: UI_Game_With_Bot_Difficulty
+    languages: 0000000001000000
+    values:
+    - Game with bot difficulty
+    - "\u0421\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u0438\u0433\u0440\u044B
+      \u0441 \u0431\u043E\u0442\u043E\u043C"
+  - key: UI_Bot_Easy
+    languages: 0000000001000000
+    values:
+    - Easy
+    - "\u041B\u0435\u0433\u043A\u0438\u0439"
+  - key: UI_Bot_Medium
+    languages: 0000000001000000
+    values:
+    - Medium
+    - "\u0421\u0440\u0435\u0434\u043D\u0438\u0439"
+  - key: UI_Bot_Hard
+    languages: 0000000001000000
+    values:
+    - Hard
+    - "\u0421\u043B\u043E\u0436\u043D\u044B\u0439"
+  - key: UI_Ads_Count_3
+    languages: 0000000001000000
+    values:
+    - Every three games
+    - "\u0420\u0430\u0437 \u0432 \u0442\u0440\u0438 \u0438\u0433\u0440\u044B"
+  - key: UI_Ads_Count_2
+    languages: 0000000001000000
+    values:
+    - Every two games
+    - "\u0420\u0430\u0437 \u0432 \u0434\u0432\u0435 \u0438\u0433\u0440\u044B"
+  - key: UI_Ads_Count_1
+    languages: 0000000001000000
+    values:
+    - Every game
+    - "\u041A\u0430\u0436\u0434\u0443\u044E \u0438\u0433\u0440\u0443"
+  - key: UI_Ads_Count_0
+    languages: 0000000001000000
+    values:
+    - No ads
+    - "\u0411\u0435\u0437 \u0440\u0435\u043A\u043B\u0430\u043C\u044B"

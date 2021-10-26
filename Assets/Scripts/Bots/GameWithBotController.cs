@@ -7,7 +7,6 @@ using Core.Extensions;
 using Entities;
 using Gaming;
 using Helpers;
-using Networking;
 using Photon.Pun;
 using UI;
 using UnityEngine;
@@ -17,6 +16,7 @@ namespace Bots
 {
     public class GameWithBotController : MonoBehaviour
     {
+        private const string BotDifficultyPlayerPrefsKey = "BOT_DIFFICULTY_KEY";
         public const string BotName = "bot";
 
         [SerializeField] private GameController gameController = null;
@@ -31,6 +31,22 @@ namespace Bots
         private DamageController _damageController = null;
         private List<UsedWord> _usedWords = new List<UsedWord>();
         private BotController _bot = null;
+        private BotDifficulty _botDifficulty = BotDifficulty.Medium;
+        
+        public BotDifficulty BotDifficulty
+        {
+            get => _botDifficulty;
+            set
+            {
+                if (value == _botDifficulty)
+                    return;
+
+                _botDifficulty = value;
+                Debug.Log($"Bot difficulty set: {_botDifficulty}");
+
+                SaveSettings();
+            }
+        }
         
         public void PlayWithBot()
         {
@@ -38,7 +54,7 @@ namespace Bots
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
             _usedWords.Clear();
-            _bot = new BotController(this, anagramsController, 1f);
+            _bot = new BotController(this, anagramsController, _botDifficulty, 1f);
             _damageController = new DamageController(PhotonNetwork.NickName, BotName);
             _damageController.OnPlayerIsDead += HandlePlayerIsDead;
 
@@ -118,7 +134,31 @@ namespace Bots
             gameRoot.Stop();
         }
 
+        #region PlayerPrefsMethods
+
+        private void LoadSettings()
+        {
+            _botDifficulty = PlayerPrefs.HasKey(BotDifficultyPlayerPrefsKey)
+                ? (BotDifficulty) PlayerPrefs.GetInt(BotDifficultyPlayerPrefsKey)
+                : BotDifficulty.Medium;
+            
+            SaveSettings();
+        }
+
+        private void SaveSettings()
+        {
+            PlayerPrefs.SetInt(BotDifficultyPlayerPrefsKey, (int) _botDifficulty);
+            PlayerPrefs.Save();
+        }
+
+        #endregion
+
         #region MonoBehaviourCallbacks
+
+        private void Awake()
+        {
+            LoadSettings();
+        }
 
         private void Update()
         {
